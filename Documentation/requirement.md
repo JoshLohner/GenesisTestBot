@@ -6,7 +6,7 @@
 - Display the amount of members in the guild in the message
 - Be able to link to other channels in the message
 - Be able to send hyper links in the message
-- Display a picture
+- Display the users pfp over a background message.
 
 ## Leaving Message
 
