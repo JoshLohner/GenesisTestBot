@@ -18,7 +18,7 @@ class EventHandler(commands.Cog):
         if channel:
             # Send a welcome message in the general channel
             await channel.send(
-                f"""Welcome to Genesis, {member.mention}! If you are interested in joining the guild, fill out the application: https://forms.gle/9PVuV6p9PvZYwtUMA \nChannels and role selection are above in {specific_channel.mention}. If you are not interested in joining the guild for now, select the Friend of the Guild role or the Guild Ambassador role if you are in another guild! We are now at {member.guild.member_count} members!"""
+                f"""Welcome to Genesis, {member.mention}! If you are interested in joining the guild, fill out the application: https://forms.gle/9PVuV6p9PvZYwtUMA \nChannels and role selection are above in {specific_channel.mention}. If you are not interested in joining the guild for now, select the Friend of the Guild role or the Guild Ambassador role if you are in another guild!\nWe are now at {member.guild.member_count} members!"""
             )
 
             # Get the member's avatar URL
@@ -32,7 +32,7 @@ class EventHandler(commands.Cog):
             avatar = Image.open(BytesIO(response.content))
 
             # Resize the avatar to fit on the logo
-            avatar_size = (200, 200)  # Adjust the size as needed
+            avatar_size = (150, 150)  # Adjust the size as needed
             avatar = avatar.resize(avatar_size)
 
             # Make the avatar circular
@@ -43,7 +43,10 @@ class EventHandler(commands.Cog):
             avatar.putalpha(mask)  # Apply the circular mask to the avatar
 
             # Calculate the position to center the avatar on the logo
-            avatar_position = ((logo.width - avatar.width) // 2, (logo.height - avatar.height) // 2)
+            offset_y = 150 # Adjust this value to move the avatar up (increase the value to move it further up)
+            offset_x = 30 # Adjust this value to move the avatar down 
+            avatar_position = ((logo.width - avatar.width) // 2 + offset_x, (logo.height - avatar.height) // 2 - offset_y)
+
 
             # Paste the avatar onto the logo
             logo.paste(avatar, avatar_position, avatar)
@@ -70,8 +73,8 @@ class EventHandler(commands.Cog):
                 username_text_height = username_text_bbox[3] - username_text_bbox[1]
 
                 # Calculate positions to center the text below the avatar
-                welcome_position = ((logo.width - welcome_text_width) // 2, avatar_position[1] + avatar_size[1] + 10)
-                username_position = ((logo.width - username_text_width) // 2, welcome_position[1] + welcome_text_height + 10)
+                welcome_position = ((logo.width - welcome_text_width) // 2 + offset_x, avatar_position[1] + avatar_size[1] + 200)
+                username_position = ((logo.width - username_text_width) // 2 + offset_x, welcome_position[1] + welcome_text_height + 10)
 
                 # Draw the text onto the image
                 draw.text(welcome_position, welcome_text, font=font, fill="white")
