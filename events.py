@@ -4,18 +4,19 @@ from PIL import Image, ImageOps, ImageDraw, ImageFont
 import requests
 from io import BytesIO
 
+# Define a Cog for handling events
 class EventHandler(commands.Cog):
     def __init__(self, bot):
-        self.bot = bot
+        self.bot = bot  # Store a reference to the bot instance
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         # Find the general channel or use a specific channel by ID
-        channel = discord.utils.get(member.guild.text_channels, name='general')
-        specific_channel = member.guild.get_channel(762144356156964865)
+        channel = discord.utils.get(member.guild.text_channels, name='general')  # Get the 'general' text channel
+        specific_channel = member.guild.get_channel(762144356156964865)  # Get a specific channel by its ID
 
         if channel:
-            # Send a welcome message
+            # Send a welcome message in the general channel
             await channel.send(
                 f"""Welcome to Genesis, {member.mention}! If you are interested in joining the guild, fill out the application: https://forms.gle/9PVuV6p9PvZYwtUMA \nChannels and role selection are above in {specific_channel.mention}. If you are not interested in joining the guild for now, select the Friend of the Guild role or the Guild Ambassador role if you are in another guild! We are now at {member.guild.member_count} members!"""
             )
@@ -31,7 +32,7 @@ class EventHandler(commands.Cog):
             avatar = Image.open(BytesIO(response.content))
 
             # Resize the avatar to fit on the logo
-            avatar_size = (200, 200)  # You can adjust the size as needed
+            avatar_size = (200, 200)  # Adjust the size as needed
             avatar = avatar.resize(avatar_size)
 
             # Make the avatar circular
@@ -39,7 +40,7 @@ class EventHandler(commands.Cog):
             draw = ImageDraw.Draw(mask)
             draw.ellipse((0, 0) + avatar_size, fill=255)
             avatar = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
-            avatar.putalpha(mask)
+            avatar.putalpha(mask)  # Apply the circular mask to the avatar
 
             # Calculate the position to center the avatar on the logo
             avatar_position = ((logo.width - avatar.width) // 2, (logo.height - avatar.height) // 2)
@@ -52,7 +53,7 @@ class EventHandler(commands.Cog):
                 draw = ImageDraw.Draw(logo)
                 
                 # Use a bold and larger Arial font
-                font = ImageFont.truetype("assets/Arial.ttf", 50)  # Adjust the size as needed
+                font = ImageFont.truetype("assets/Arial.ttf", 50)  # Adjust the font size as needed
                 
                 # Prepare the text
                 welcome_text = "Welcome to Genesis"
@@ -84,15 +85,17 @@ class EventHandler(commands.Cog):
             logo.save(combined_image, format='PNG')
             combined_image.seek(0)
 
-            # Send the combined image
+            # Send the combined image in the channel
             await channel.send(file=discord.File(fp=combined_image, filename='welcome_image.png'))
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
+        # Find the general channel to send a departure message
         channel = discord.utils.get(member.guild.text_channels, name='general')
         if channel:
-            total_members = member.guild.member_count
-            await channel.send(f'{member.mention} {member.name} has left Genesis! We are now at {total_members} members! ')
+            total_members = member.guild.member_count  # Get the current member count
+            await channel.send(f'{member.mention} {member.name} has left Genesis! We are now at {total_members} members!')
 
+# Function to set up the Cog
 async def setup(bot):
-    await bot.add_cog(EventHandler(bot))
+    await bot.add_cog(EventHandler(bot))  # Add this Cog to the bot
