@@ -25,7 +25,7 @@ class EventHandler(commands.Cog):
             avatar_url = member.avatar.url if member.avatar else member.default_avatar.url
 
             # Open the guild logo image
-            logo = Image.open('assets/new_gen_logo.png')
+            logo = Image.open('assets/gen_logo_3.png')
 
             # Download the member's avatar
             response = requests.get(avatar_url)
