@@ -21,11 +21,17 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 async def load_extensions():
     await bot.load_extension('commands')
     await bot.load_extension('events')
+    await bot.load_extension('template_slash_commands')
 
 @bot.event
 async def on_ready():
     # This event triggers when the bot successfully connects to Discord
     print(f'Bot connected as {bot.user}')
+    try:
+        synced = await bot.tree.sync(guild=discord.Object(id=GUILD_ID))  # Replace GUILD_ID with your guild's ID
+        print(f'Synced {len(synced)} commands for guild {GUILD_ID}.')
+    except Exception as e:
+        print(f'Failed to sync commands: {e}')
 
 # Run the bot
 async def main():
@@ -34,5 +40,4 @@ async def main():
         await bot.start(TOKEN)  # Start the bot using the token
 
 # Entry point of the program to start the bot
-import asyncio
 asyncio.run(main())  # Run the main async function to start the bot
