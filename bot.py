@@ -28,8 +28,8 @@ async def on_ready():
     # This event triggers when the bot successfully connects to Discord
     print(f'Bot connected as {bot.user}')
     try:
-        synced = await bot.tree.sync(guild=discord.Object(id=GUILD_ID))  # Replace GUILD_ID with your guild's ID
-        print(f'Synced {len(synced)} commands for guild {GUILD_ID}.')
+        synced = await bot.tree.sync(guild=discord.Object(id=762143476212957204))
+        print(f'Synced {len(synced)} commands for guild 762143476212957204.')
     except Exception as e:
         print(f'Failed to sync commands: {e}')
 
@@ -40,4 +40,4 @@ async def main():
         await bot.start(TOKEN)  # Start the bot using the token
 
 # Entry point of the program to start the bot
-asyncio.run(main())  # Run the main async function to start the bot
+asyncio.run(main())
