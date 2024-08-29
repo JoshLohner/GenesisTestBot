@@ -7,6 +7,7 @@ import asyncio
 # Load environment variables from .env file
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')  # Retrieve the bot token from the .env file
+GUILD_ID = os.getenv('GUILD_ID')
 
 # Initialize the bot with intents
 intents = discord.Intents.default()  
@@ -28,8 +29,8 @@ async def on_ready():
     # This event triggers when the bot successfully connects to Discord
     print(f'Bot connected as {bot.user}')
     try:
-        synced = await bot.tree.sync(guild=discord.Object(id=762143476212957204))
-        print(f'Synced {len(synced)} commands for guild 762143476212957204.')
+        synced = await bot.tree.sync(guild=discord.Object(id=GUILD_ID))
+        print(f'Synced {len(synced)} commands for guild {GUILD_ID}.')
     except Exception as e:
         print(f'Failed to sync commands: {e}')
 

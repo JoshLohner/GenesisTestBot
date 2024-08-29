@@ -1,9 +1,10 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
+import os
+from dotenv import load_dotenv
 
-
-GUILD_ID = 762143476212957204
+GUILD_ID = os.getenv('GUILD_ID')
 
 # Define a Cog for handling slash commands
 class SlashCommandHandler(commands.Cog):
