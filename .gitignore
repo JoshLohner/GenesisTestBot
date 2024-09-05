@@ -1,2 +1,7 @@
 .env
 __pycache__/*
+__pycache__/template_slash_commands.cpython-312.pyc
+/__pycache__
+/Database/__pycache__
+/__pycache__
+__pycache__/template_slash_commands.cpython-312.pyc

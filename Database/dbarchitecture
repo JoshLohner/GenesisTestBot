@@ -1,0 +1,7 @@
+table_name = "templates"
+    columns = {
+        "templateid": "INTEGER PRIMARY KEY AUTOINCREMENT",
+        "creator": "TEXT",
+        "template": "TEXT NOT NULL UNIQUE",
+        "assignedTo": "INTEGER"
+    }

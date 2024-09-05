@@ -17,7 +17,15 @@ class SlashCommandHandler(commands.Cog):
         print("test")
         
         await interaction.response.send_message("Hello, world!", ephemeral=True)
-
-# Function to set up the Cog
+        
+  
+    @app_commands.command(name="viewcurrenttemplates", description="View all current templates.")
+    @app_commands.guilds(discord.Object(id=GUILD_ID))  # Use the defined guild ID
+    async def viewCurrentTemplates(self, interaction: discord.Interaction):
+        await interaction.response.send_message("Here are the current templates:", ephemeral=True)
+        
+        
+    
+    
 async def setup(bot):
     await bot.add_cog(SlashCommandHandler(bot))  # Add this Cog to the bot

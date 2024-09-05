@@ -1,0 +1,50 @@
+from dbHelper import DBHelper
+
+Example 1: Creating a Table
+
+# Initialize the DBHelper with the path to the database file
+db = DBHelper('example.db')
+
+# Define the table name and columns
+table_name = 'users'
+columns = {
+    'id': 'INTEGER PRIMARY KEY AUTOINCREMENT',
+    'name': 'TEXT NOT NULL',
+    'email': 'TEXT NOT NULL UNIQUE'
+}
+
+# Create the table
+db.create_table(table_name, columns)
+
+Example 2: Inserting Values
+
+# Initialize the DBHelper with the path to the database file
+db = DBHelper('example.db')
+
+# Define the table name and values to insert
+table_name = 'users'
+values = {
+    'name': 'John Doe',
+    'email': 'john.doe@example.com'
+}
+
+# Insert the values
+db.insert_value(table_name, values)
+
+
+Example 3: Reading All Values
+
+from dbHelper import DBHelper
+
+# Initialize the DBHelper with the path to the database file
+db = DBHelper('example.db')
+
+# Define the table name
+table_name = 'users'
+
+# Read all values from the table
+rows = db.read_all_values(table_name)
+
+# Print the rows
+for row in rows:
+    print(row)

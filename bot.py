@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 import asyncio
+import sqlite3
 
 # Load environment variables from .env file
 load_dotenv()
@@ -33,6 +34,10 @@ async def on_ready():
         print(f'Synced {len(synced)} commands for guild {GUILD_ID}.')
     except Exception as e:
         print(f'Failed to sync commands: {e}')
+
+# Function to initialize the SQLite database
+
+   
 
 # Run the bot
 async def main():
